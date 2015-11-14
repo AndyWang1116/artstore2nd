@@ -1,7 +1,7 @@
 class Admin::ProductsController < ApplicationController
 
-before_action :authenticate_user!
-before_action :admin_required
+before_action :authenticate_user! # 使用者必須要登入才能存取後台
+before_action :admin_required     # 使用者必須是admin權限 (新增is_admin欄位到user.rb且預設值為false)
 
 def index
   @products = Product.all
