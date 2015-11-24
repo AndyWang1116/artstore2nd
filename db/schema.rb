@@ -11,7 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151116024628) do
+ActiveRecord::Schema.define(version: 20151124082133) do
+
+  create_table "cart_items", force: :cascade do |t|
+    # 購物車的格子 屬於 哪一台購物車
+    t.integer  "cart_id"
+    # 購物車的格子可以貼上 商品的標籤條碼
+    t.integer  "product_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "carts", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "photos", force: :cascade do |t|
     t.integer  "product_id"

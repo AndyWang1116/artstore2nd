@@ -10,7 +10,11 @@ Rails.application.routes.draw do
 
   end
 
-  resources :products
+  resources :products do
+    member do # 對單筆資料進行處理
+      post :add_to_cart
+    end
+  end
 
   root "products#index"
 
