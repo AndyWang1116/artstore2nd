@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
     end
 
     # 再將cart的值 重新設定給使用者目前 session[:card_id]的值
-    session[:cart_id] = cart.id
-    cart
+    session[:cart_id] = cart.id   # 將cart.id值傳給session
+    cart                          # 回傳cart的值 (return被省略掉)
   end
 end
