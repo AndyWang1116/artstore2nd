@@ -11,15 +11,23 @@ class OrdersController < ApplicationController
     else
       render "carts/checkout"   # 跨controller時(這邊是orders,要跨到carts), 且複用template , 在同一controller裡則是render :new
     end
-
-    def show
-      @order = Order.find_by_token(params[:id])
-      @order_info = @order.info
-      @order_items = @order.items
-    end
-
-
   end
+
+  def show
+    @order = Order.find_by_token(params[:id])
+    @order_info = @order.info
+    @order_items = @order.items
+  end
+
+  def pay_with_credit_card
+    @order = Order.find_by_token(params[:id])
+    @order.set_payment_with!("credit_card")
+    @order.pay!
+
+    redirect_to "/", notice: "成功完成付款"
+  end
+
+
 
 
 
@@ -33,4 +41,5 @@ class OrdersController < ApplicationController
                                                     :shipping_name,
                                                     :shipping_address] )
   end
+
 end

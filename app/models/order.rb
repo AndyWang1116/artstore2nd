@@ -29,4 +29,13 @@ class Order < ActiveRecord::Base
     self.token = SecureRandom.uuid
   end
 
+  # 設定order付款完成的method
+  def set_payment_with!(method)
+    self.update_columns(payment_method: method)
+  end
+
+  #設定付款方式完成紀錄的method
+  def pay!
+    self.update_columns(is_paid: true)
+  end
 end
