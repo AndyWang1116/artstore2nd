@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_many :orders
 
   def admin?
     is_admin    #  讀取 user資料庫裡 is_admin的欄位內容 (true / false)
