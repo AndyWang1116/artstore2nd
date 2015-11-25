@@ -39,8 +39,8 @@
     <div class="order-form">
 
       <%= simple_form_for @order do |f| %>
-
-        <%= f.simple_fields_for :indo do |c| %>
+        <!-- 對@order 進行巢狀表單 ,也就是model info (OrderInfo) -->
+        <%= f.simple_fields_for :info do |c| %>
 
           <legend> 訂購人 </legend>
           <div class="form-group col-lg-6">
