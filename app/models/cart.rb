@@ -7,7 +7,9 @@ class Cart < ActiveRecord::Base
   end                               # 在Rails裡, 如果是array又有db的關係 rails會自動將內容插進去並且儲存
 
   def total_price
-    items.inject(0) { |sum, item| sum + item.price}
+    # items.inject(0) { |sum, item| sum + item.price}
+    # why not :                     sum + (item.price * item.quantity)
+    cart_items.inject(0) { |sum, cart_item| sum + (cart_item.product.price * cart_item.quantity) }
   end
 
   def clean!
