@@ -34,8 +34,42 @@ class Order < ActiveRecord::Base
     self.update_columns(payment_method: method)
   end
 
-  #設定付款方式完成紀錄的method
+  # 設定付款方式完成紀錄的method
   def pay!
     self.update_columns(is_paid: true)
+  end
+
+  # 安裝gem後，引入aasm
+  include AASM
+
+  # aasm do 底下定義各種狀態，在此為 已下訂 已付款 出貨中 已到貨 訂單取消 退貨
+  aasm do
+    state :order_placed, initial: true
+    state :paid
+    state :shipping
+    state :shipped
+    state :order_cancelled
+    state :good_returned
+
+    # 定義事件名稱make_payment(付款)，轉換狀態(trasitions) 從"已下訂"的狀態改為"已付款""
+    event :make_payment, after_commit: :pay! do
+      transitions from: :order_placed, to: :paid
+    end
+
+    event :ship do
+      transitions from: :paid,         to: :shipping
+    end
+
+    event :deliver do
+      transitions from: :shipping,      to: :shipped
+    end
+
+    event :return_good do
+      transitions from: :shipped,      to: :good_returned
+    end
+
+    event :cancel_order do
+      transitions from: [:order_placed, :paid], to: :order_cancelled
+    end
   end
 end
