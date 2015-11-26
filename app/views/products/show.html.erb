@@ -17,7 +17,11 @@
     <div> 數量： <%= @product.quantity %> </div>
     <div class="products-price"> $ <%= @product.price %> </div>
     <div class="pull-right">
-      <%= link_to("加入購物車", add_to_cart_product_path(@product), method: :post, :class => "btn btn-primary btn-lg btn-danger") %>
+      <% if @product.quantity > 0 %>
+        <%= link_to("加入購物車", add_to_cart_product_path(@product), method: :post, :class => "btn btn-primary btn-lg btn-danger") %>
+      <% else %>
+        此商品已售完，補貨中
+     <% end %>
     </div>
   </div> <!-- class "col-md-6" -->
 </div> <!-- class "row" -->

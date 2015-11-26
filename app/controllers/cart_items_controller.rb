@@ -13,7 +13,12 @@ class CartItemsController < ApplicationController
     @cart = current_cart
     @item = @cart.cart_items.find_by(product_id: params[:id])   # 對curren_cart搜尋product_id為目前網址輸入的數字的cart_item,傳給@item
 
-    @item.update(item_params)  # 遇到update需要使用strong_parameter概念,讓指定欄位通過
+    if @item.product.quantity >= item_params[:quantity].to_i
+      @item.update(item_params)  # 遇到update需要使用strong_parameter概念,讓指定欄位通過
+      flash[:notice] = "成功變更數量"
+    else
+      flash[:warning] = "數量不足以加入購物車"
+    end
 
     redirect_to carts_path
   end
