@@ -21,7 +21,8 @@ Rails.application.routes.draw do
 
   resources :carts do
     collection do
-      post :checkout
+      post :checkout   # 訂單確認頁面路徑為checkout
+      delete :clean    # 清空購物車內容路徑為clean
     end
   end
 
