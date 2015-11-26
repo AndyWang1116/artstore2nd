@@ -32,6 +32,8 @@ Rails.application.routes.draw do
     end
   end
 
+  # 將建立的cart_items controller 對應的路徑命名為items
+  resources :items, controller: "cart_items"
 
   root "products#index"
 
