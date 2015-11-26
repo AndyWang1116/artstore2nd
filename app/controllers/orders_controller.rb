@@ -7,6 +7,7 @@ class OrdersController < ApplicationController
     if @order.save
       @order.build_item_cache_from_cart(current_cart)   # @order呼叫 order.rb裡定義的function, 產生cache(日後產品可能會被刪掉)
       @order.calculate_total!(current_cart)             # 將目前購物車總金額的值存進訂單的金額欄位(total)
+      current_cart.clean!
       redirect_to order_path(@order.token)
     else
       render "carts/checkout"   # 跨controller時(這邊是orders,要跨到carts), 且複用template , 在同一controller裡則是render :new
