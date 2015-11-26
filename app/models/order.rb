@@ -13,7 +13,8 @@ class Order < ActiveRecord::Base
     cart.items.each do |cart_item|       # 這邊的items指的是model order_item 所以會有product_name price quantity等欄位可呼叫
       item = items.build                 # 新創一個order_item的object 叫做item
       item.product_name = cart_item.title   # 將目前cart_item的各種資訊都存進去item這個object
-      item.quantity = 1
+      #item.quantity = cart.cart_items.find_by(product_id: cart_item).quantity
+      item.quantity = cart.find_cart_item(cart_item).quantity
       item.price = cart_item.price
       item.save
     end

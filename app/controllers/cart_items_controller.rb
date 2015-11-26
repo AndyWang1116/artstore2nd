@@ -1,7 +1,8 @@
 class CartItemsController < ApplicationController
   def destroy
     @cart  = current_cart
-    @item = @cart.cart_items.find_by(product_id: params[:id])  # 從現有購物車找到相對應的item id 存進@item
+   # @item = @cart.cart_items.find_by(product_id: params[:id])  # 從現有購物車找到相對應的item id 存進@item
+    @item = @cart.find_cart_item(params[:id])
     @product = @item.product                # 將@item刪掉前, 先存一個臨時的@product
     @item.destroy
 
