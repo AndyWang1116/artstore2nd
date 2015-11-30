@@ -46,6 +46,7 @@
               <% end %>
             </td>
             <td>
+              <!-- 當link to有包含物件(ex:圖片)時 要用do end 包起來 -->
               <%= link_to item_path(product), method: :delete do %>
                 <i class="fa fa-trash"></i>
               <% end %>

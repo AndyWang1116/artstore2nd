@@ -1,6 +1,7 @@
 class Order < ActiveRecord::Base
   belongs_to :user
 
+  # 重要!! 在這裡:items
   has_many :items, class_name: "OrderItem", dependent: :destroy
   has_one  :info,  class_name: "OrderInfo", dependent: :destroy
 
@@ -11,7 +12,7 @@ class Order < ActiveRecord::Base
 
   def build_item_cache_from_cart(cart)
     cart.items.each do |cart_item|       # 這邊的items指的是model order_item 所以會有product_name price quantity等欄位可呼叫
-      item = items.build                 # 新創一個order_item的object 叫做item
+      item = items.build                 # 新創一個order_item的object 叫做item,model之間有關聯時用.build建立關係
       item.product_name = cart_item.title   # 將目前cart_item的各種資訊都存進去item這個object
       #item.quantity = cart.cart_items.find_by(product_id: cart_item).quantity
       item.quantity = cart.find_cart_item(cart_item).quantity

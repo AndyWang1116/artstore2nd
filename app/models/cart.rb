@@ -1,5 +1,6 @@
 class Cart < ActiveRecord::Base
   has_many :cart_items, dependent: :destroy
+  # 重要!!! 這裡 :items是"透過 cart_items, 實際上呼叫的source是product model"
   has_many :items, through: :cart_items, source: :product # 讓Cart呼叫 cart_items時可以簡稱為 items
 
   def add_product_to_cart(product)
@@ -8,7 +9,7 @@ class Cart < ActiveRecord::Base
 
   def total_price
     # items.inject(0) { |sum, item| sum + item.price}
-    # why not :                     sum + (item.price * item.quantity)
+    # why not :                     sum + (item.price * item.quantity) <-- 這樣會呼叫庫存(:product)的總數量
     cart_items.inject(0) { |sum, cart_item| sum + (cart_item.product.price * cart_item.quantity) }
   end
 

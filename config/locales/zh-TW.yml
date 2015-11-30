@@ -1,0 +1,24 @@
+# .yml 檔案 縮排很重要! 如果縮排錯誤可能會讀取不到檔案
+
+zh-TW:
+  orders:
+    order_state:
+      order_placed: 已下單
+      paid: 已付款
+      shipping: 出貨中
+      shipped: 已到貨
+      order_cancelled: 取消訂單
+      good_returned: 退貨
+  activerecord:
+    errors:
+      models:
+        order_info:
+          attributes:
+            billing_name:
+              blank: 購買人姓名不可為空白
+            billing_address:
+              blank: 購買人地址不可為空白
+            shipping_name:
+              blank: 收件人姓名不可為空白
+            shipping_address:
+              blank: 收件人地址不可為空白
